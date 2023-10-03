@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="edit-task-style.css">
+
+</head>
+<body>
+    <h1>Edit Task</h1>
+    <form id="edit-task-form">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description">
+        </div>
+        <div>
+            <label for="date">Due Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div>
+            <label for="completed">Completed:</label>
+            <input type="checkbox" id="completed" name="completed">
+        </div>
+        <button type="submit">Update Task</button>
+    </form>
+
+    <script  type="module" src="edit-task.js"></script>
+
+
+    <!--script>
+        // JavaScript code to retrieve query parameters and pre-fill form fields
+        const queryParams = new URLSearchParams(window.location.search);
+        const titleField = document.getElementById('title');
+        const descriptionField = document.getElementById('description');
+        const dateField = document.getElementById('date');
+        const completedField = document.getElementById('completed');
+        
+        // Set form field values from query parameters
+        titleField.value = queryParams.get('title') || '';
+        descriptionField.value = queryParams.get('description') || '';
+        dateField.value = queryParams.get('date') || '';
+        completedField.checked = queryParams.get('completed') === 'true';
+
+        // Add event listener for form submission
+        const editTaskForm = document.getElementById('edit-task-form');
+
+        // Function to format date as "dd-mm-yyyy"
+        function formatDate(inputDate) {
+            const date = new Date(inputDate);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        // ...
+
+        editTaskForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Retrieve the task ID from the query parameters
+            const taskId = queryParams.get('id');
+            
+            // Prepare data to send in the PUT request
+            const formData = new FormData(editTaskForm);
+            const requestData = {
+                todoTitle: formData.get('title'),
+                todoDescription: formData.get('description'),
+                todoDate: formatDate(formData.get('date')), // Format the date
+                isComplete: formData.get('completed') === 'on', // Checkbox value
+            };
+
+            console.log(requestData.todoTitle, requestData.todoDescription, requestData.todoDate, requestData.isComplete);
+
+            try {
+                // Send a PUT request to update the task
+                const response = await fetch(`http://localhost:8080/api/v1/todo/updateitem/${taskId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                });
+
+                if (response.status === 200) {
+                    // Task updated successfully, display a success message
+                    alert('Task updated successfully.');
+                } else {
+                    // Task update failed, display an error message
+                    alert('Failed to update task. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error updating task:', error);
+            }
+        });
+
+
+    </script-->
+</body>
+</html>
